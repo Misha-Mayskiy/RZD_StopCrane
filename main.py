@@ -15,11 +15,14 @@ class BrakeSystemMonitor:
         self.running = True
 
     def simulate_pressures(self):
+        count_checks = 0
         while self.running:
+            count_checks += 1
+            print(f"\n--------------> Замер {count_checks} <--------------\n")
             for wagon in range(self.num_wagons):
                 for brake in range(self.brakes_per_wagon):
                     # Эмулируем давление с небольшими изменениями
-                    change = random.uniform(-0.5, 0.5)
+                    change = random.uniform(-0.4, 0.5)
                     self.wagon_pressures[wagon][brake] = max(0.0, self.wagon_pressures[wagon][brake] + change)
             time.sleep(1)  # Обновление каждые 1 секунду
 
@@ -27,7 +30,7 @@ class BrakeSystemMonitor:
         while self.running:
             for wagon_num, wagon in enumerate(self.wagon_pressures, start=1):
                 for brake_num, pressure in enumerate(wagon, start=1):
-                    if pressure < self.threshold:
+                    if pressure < self.threshold - 0.2:
                         self.report_issue(wagon_num, brake_num, pressure)
             time.sleep(1)  # Анализ каждые 1 секунду
 
