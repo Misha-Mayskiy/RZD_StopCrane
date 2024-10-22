@@ -2,13 +2,14 @@ import time
 import random
 from threading import Thread
 
+
 class BrakeSystemMonitor:
     def __init__(self, num_wagons=20, brakes_per_wagon=3, threshold=5.0):
         self.num_wagons = num_wagons
         self.brakes_per_wagon = brakes_per_wagon
         self.threshold = threshold
         self.wagon_pressures = [
-            [random.uniform(4.0, 6.0) for _ in range(self.brakes_per_wagon)]
+            [random.uniform(5.0, 6.0) for _ in range(self.brakes_per_wagon)]
             for _ in range(self.num_wagons)
         ]
         self.running = True
@@ -31,7 +32,9 @@ class BrakeSystemMonitor:
             time.sleep(1)  # Анализ каждые 1 секунду
 
     def report_issue(self, wagon_num, brake_num, pressure):
-        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Проблема в вагоне {wagon_num}, стоп-кран {brake_num}: давление {pressure:.2f} атмосфер!")
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Проблема в вагоне {wagon_num},"
+            f" стоп-кран {brake_num}: давление {pressure:.2f} атмосфер!")
 
     def start_monitoring(self):
         self.simulation_thread = Thread(target=self.simulate_pressures)
@@ -43,6 +46,7 @@ class BrakeSystemMonitor:
         self.running = False
         self.simulation_thread.join()
         self.analysis_thread.join()
+
 
 if __name__ == "__main__":
     monitor = BrakeSystemMonitor(num_wagons=20, brakes_per_wagon=3, threshold=5.0)
