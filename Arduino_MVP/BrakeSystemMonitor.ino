@@ -3,7 +3,7 @@
 #include <Adafruit_SSD1306.h> // для OLED дисплея
 
 #define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 32
+#define SCREEN_HEIGHT 32 // Размеры экрана
 #define PRESSURE_SENSOR_PIN A0  // Пин для датчика давления
 
 // Пороговое значение давления
